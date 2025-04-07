@@ -61,60 +61,112 @@ const DelayedSlackSender = () => {
     }, delay);
   };
 
+  const inputStyle = {
+    width: '100%',
+    padding: '10px',
+    marginBottom: '15px',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
+    fontSize: '16px',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+    transition: 'border-color 0.3s',
+  };
+
+  const labelStyle = {
+    fontWeight: 'bold',
+    marginBottom: '5px',
+    display: 'block',
+  };
+
   return (
-    <div style={{ maxWidth: 400, margin: 'auto', padding: 20, fontFamily: 'Arial' }}>
-      <h2>Delayed Slack Message Sender</h2>
+    <div
+      style={{
+        maxWidth: 400,
+        margin: '50px auto',
+        padding: 30,
+        fontFamily: 'Arial, sans-serif',
+        backgroundColor: '#f9f9f9',
+        borderRadius: '12px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+      }}
+    >
+      <h2 style={{ textAlign: 'center', marginBottom: 30 }}>
+        Scheduled Slack Message Sender
+      </h2>
 
-      <label>Candidate Name:</label>
-      <input
-        type="text"
-        value={candidateName}
-        onChange={e => setCandidateName(e.target.value)}
-        style={{ width: '100%', marginBottom: 10 }}
-      />
+      <label style={labelStyle}>Candidate Name:</label>
+      <div style={{ display: 'flex', marginBottom: 15, gap: '10px'}}>
+        <input
+          type="text"
+          value={candidateName}
+          onChange={e => setCandidateName(e.target.value)}
+          style={{ ...inputStyle, marginBottom: 0, flex: 1 }}
+          placeholder="Enter your name"
+        />
+      </div>
 
-      <label>Delay:</label>
-      <div style={{ display: 'flex', marginBottom: 10 }}>
+      <label style={labelStyle}>Delay:</label>
+      <div style={{ display: 'flex', marginBottom: 15, gap: '10px'}}>
         <input
           type="number"
           min="0"
           value={delayAmount}
           onChange={e => setDelayAmount(e.target.value)}
-          style={{ flex: 1 }}
+          style={{ ...inputStyle, marginBottom: 0, flex: 1 }}
+          placeholder="0"
         />
-        <select value={delayUnit} onChange={e => setDelayUnit(e.target.value)}>
+        <select
+          value={delayUnit}
+          onChange={e => setDelayUnit(e.target.value)}
+          style={{
+            ...inputStyle,
+            marginBottom: 0,
+            flex: 1,
+            cursor: 'pointer',
+            appearance: 'none',
+          }}
+        >
           <option value="seconds">Seconds</option>
           <option value="minutes">Minutes</option>
           <option value="hours">Hours</option>
         </select>
       </div>
 
-      <label>Slack Message:</label>
-      <input
-        type="text"
-        value={message}
-        onChange={e => setMessage(e.target.value)}
-        style={{ width: '100%', marginBottom: 10 }}
-      />
+      <label style={labelStyle}>Slack Message:</label>
+      <div style={{ display: 'flex', marginBottom: 15, gap: '10px'}}>
+        <input
+          type="text"
+          value={message}
+          onChange={e => setMessage(e.target.value)}
+          style={inputStyle}
+          placeholder="Type your message here"
+        />
+      </div>
 
-      <label>Slack Webhook URL:</label>
-      <input
-        type="text"
-        value={webhookUrl}
-        onChange={e => setWebhookUrl(e.target.value)}
-        style={{ width: '100%', marginBottom: 20 }}
-      />
+      <label style={labelStyle}>Slack Webhook URL:</label>
+      <div style={{ display: 'flex', marginBottom: 15, gap: '10px'}}>
+        <input
+          type="text"
+          value={webhookUrl}
+          onChange={e => setWebhookUrl(e.target.value)}
+          style={inputStyle}
+          placeholder="https://hooks.slack.com/..."
+        />
+      </div>
 
       <button
         onClick={handleSend}
         disabled={!isFormValid || isSending}
         style={{
           width: '100%',
-          padding: 10,
+          padding: '12px',
           backgroundColor: isFormValid ? '#007bff' : '#ccc',
           color: '#fff',
           border: 'none',
+          borderRadius: '8px',
+          fontSize: '16px',
           cursor: isFormValid ? 'pointer' : 'not-allowed',
+          transition: 'background-color 0.3s',
         }}
       >
         {buttonText}
