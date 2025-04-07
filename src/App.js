@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 const DelayedSlackSender = () => {
+  const [candidateName, setCandidateName] = useState('');
   const [delayAmount, setDelayAmount] = useState('');
   const [delayUnit, setDelayUnit] = useState('seconds');
   const [message, setMessage] = useState('');
   const [webhookUrl, setWebhookUrl] = useState('');
   const [buttonText, setButtonText] = useState('Send');
   const [isSending, setIsSending] = useState(false);
-
-  const candidateName = 'James Cruz'; // Replace with your name
 
   const getDelayInMs = () => {
     const amount = parseInt(delayAmount, 10);
@@ -29,7 +28,7 @@ const DelayedSlackSender = () => {
     }
   }, [delayAmount, delayUnit]);
 
-  const isFormValid = delayAmount && message && webhookUrl;
+  const isFormValid = candidateName && delayAmount && message && webhookUrl;
 
   const handleSend = () => {
     setIsSending(true);
@@ -65,6 +64,14 @@ const DelayedSlackSender = () => {
   return (
     <div style={{ maxWidth: 400, margin: 'auto', padding: 20, fontFamily: 'Arial' }}>
       <h2>Delayed Slack Message Sender</h2>
+
+      <label>Candidate Name:</label>
+      <input
+        type="text"
+        value={candidateName}
+        onChange={e => setCandidateName(e.target.value)}
+        style={{ width: '100%', marginBottom: 10 }}
+      />
 
       <label>Delay:</label>
       <div style={{ display: 'flex', marginBottom: 10 }}>
